@@ -7,7 +7,7 @@ gulp.task('html', function() {
    gulp.src(['./lib/pug/index.pug'])
    .pipe($.pug({pretty: true, doctype: 'html'}))
    .on('error', $.util.log)
-   .pipe(gulp.dest('./public/'));
+   .pipe(gulp.dest('.'));
 });
 
 // create a TASK to compile CoffeeScript to JavaScript using gulp-coffee
