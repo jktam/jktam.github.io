@@ -15,14 +15,14 @@ gulp.task('js', function() {
    gulp.src(['./lib/coffee/main.coffee'])
    .pipe($.coffee({bare: true}))
    .on('error', $.util.log)
-   .pipe(gulp.dest('./public/'));
+   .pipe(gulp.dest('./js/'));
 });
 
 // create a TASK to compile Sass into CSS using gulp-sass
 gulp.task('css', function() {
    gulp.src(['./lib/sass/main.scss'])
    .pipe($.sass({style: 'expanded'}))
-   .pipe(gulp.dest('./public/'));
+   .pipe(gulp.dest('./css/'));
 });
 
 // create a TASK to WATCH for changes in your files
