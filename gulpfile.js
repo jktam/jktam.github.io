@@ -4,7 +4,7 @@ var $ = require('gulp-load-plugins')();
 
 // create a TASK to compile Pug to HTML using gulp-pug
 gulp.task('html', function() {
-   gulp.src(['./lib/pug/index.pug'])
+   gulp.src(['./lib/pug/*.pug'])
    .pipe($.pug({pretty: true, doctype: 'html'}))
    .on('error', $.util.log)
    .pipe(gulp.dest('.'));
@@ -12,7 +12,7 @@ gulp.task('html', function() {
 
 // create a TASK to compile CoffeeScript to JavaScript using gulp-coffee
 gulp.task('js', function() {
-   gulp.src(['./lib/coffee/main.coffee'])
+   gulp.src(['./lib/coffee/*.coffee'])
    .pipe($.coffee({bare: true}))
    .on('error', $.util.log)
    .pipe(gulp.dest('./js/'));
@@ -20,17 +20,18 @@ gulp.task('js', function() {
 
 // create a TASK to compile Sass into CSS using gulp-sass
 gulp.task('css', function() {
-   gulp.src(['./lib/sass/main.scss'])
+   gulp.src(['./lib/sass/*.scss'])
    .pipe($.sass({style: 'expanded'}))
+   .on('error', $.util.log)
    .pipe(gulp.dest('./css/'));
 });
 
 // create a TASK to WATCH for changes in your files
 // this will "watch" for any changes in your files and rerun gulp if necessary
 gulp.task('watch', function() {
-   gulp.watch(['./lib/pug/index.pug'], ['html']);
-   gulp.watch(['./lib/coffee/script.coffee'], ['js']);
-   gulp.watch(['./lib/sass/style.scss'], ['css']);
+   gulp.watch(['./lib/**/*.pug'], ['html']);
+   gulp.watch(['./lib/**/*.coffee'], ['js']);
+   gulp.watch(['./lib/**/*.scss'], ['css']);
 });
 
 // finally, create a TASK that will run all commands when typing "gulp"
