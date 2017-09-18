@@ -1,5 +1,6 @@
 // We have to require our dependencies
-var gulp = require('gulp');
+var gulp = require('gulp'),
+    livereload = require('gulp-livereload');
 var $ = require('gulp-load-plugins')();
 
 // create a TASK to compile Pug to HTML using gulp-pug
@@ -32,6 +33,12 @@ gulp.task('watch', function() {
    gulp.watch(['./lib/**/*.pug'], ['html']);
    gulp.watch(['./lib/**/*.coffee'], ['js']);
    gulp.watch(['./lib/**/*.scss'], ['css']);
+   // Create LiveReload server
+   livereload.listen();
+
+   // Watch any files in lib/, reload on change
+   gulp.watch(['./*.html']).on('change', livereload.changed);
+   gulp.watch(['./lib/**']).on('change', livereload.changed);
 });
 
 // finally, create a TASK that will run all commands when typing "gulp"

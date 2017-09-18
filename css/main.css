@@ -1,5 +1,6 @@
 body {
-  padding-top: 50px; }
+  padding-top: 50px;
+  font-family: "Helvetica", Helvetica, sans-serif; }
 
 @media (min-width: 767px) {
   .navbar {
@@ -10,8 +11,12 @@ body {
   .top-nav-collapse {
     padding: 0; } }
 
+.footer {
+  background-color: #f5f5f5; }
+
 .social-buttons {
-  color: grey; }
+  color: grey;
+  margin: 20px 0; }
 
 #copyright {
   position: relative; }

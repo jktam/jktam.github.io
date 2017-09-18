@@ -34,9 +34,9 @@ html(lang='en')
         #navbar.collapse.navbar-collapse
           ul.nav.navbar-nav
             li.active
-              a(href='#') About
+              a(href='#') Profile
             li
-              a(href='#about') Work
+              a(href='#works') Works
             li
               a(href='#contact') Contact
         // /.nav-collapse
@@ -44,10 +44,10 @@ html(lang='en')
       .content
         p.lead
           | B.S. in Computer Science @ UC Davis, June 2016. Passion in building and creativity. Stay tuned for my finished website!
-          //- br
-          //- |  All you get is this text and a mostly barebones HTML document.
-    .container
-      .footer
+        //- img(src='img/grad-shoot.jpg')
+    .footer.navbar-default.navbar-fixed-bottom
+      .container-fluid
+
         ul.list-unstyled.list-inline.social-buttons
           li
             a(href='https://github.com/jktam', target='_blank')
@@ -62,7 +62,9 @@ html(lang='en')
             a(href='https://www.linkedin.com/in/jkitam', target='_blank')
               i.fa.fa-linkedin.fa-2x(aria-hidden='true')
           li
-            i.fa.fa-twitter.fa-2x(aria-hidden='true')
+            a(href='https://twitter.com/jms_tm', target='_blank')
+              i.fa.fa-twitter.fa-2x(aria-hidden='true')
+
     // /.container
     //
       Bootstrap core JavaScript
