@@ -23,3 +23,7 @@ body {
 
 .content {
   padding: 40px 0px; }
+
+.content img {
+  max-width: 100%;
+  height: auto; }
