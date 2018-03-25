@@ -1,7 +1,7 @@
 body {
   padding-top: 50px;
   font-family: "Helvetica", Helvetica, sans-serif;
-}
+
 
 @media(min-width:767px) {
   .navbar {
@@ -40,4 +40,11 @@ body {
     display:block;
     margin-left: auto;
     margin-right:auto;
+}
+.col-lg-4{
+  padding:0;
+}
+.removePad{
+  padding:0;
+}
 }
