@@ -1,15 +1,15 @@
-#lab_social_icon_footer {
+#contact {
   padding: 40px 0; }
 
-#lab_social_icon_footer a {
+#contact a {
   color: #333; }
 
-#lab_social_icon_footer .social:hover {
+#contact .social:hover {
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
   -o-transform: scale(1.1); }
 
-#lab_social_icon_footer .social {
+#contact .social {
   -webkit-transform: scale(0.8);
   /* Browser Variations: */
   -moz-transform: scale(0.8);
@@ -21,14 +21,14 @@
 /*
     Multicoloured Hover Variations
 */
-#lab_social_icon_footer #social-fb:hover {
+#contact #social-fb:hover {
   color: #3B5998; }
 
-#lab_social_icon_footer #social-tw:hover {
+#contact #social-tw:hover {
   color: #4099FF; }
 
-#lab_social_icon_footer #social-gp:hover {
+#contact #social-gp:hover {
   color: #d34836; }
 
-#lab_social_icon_footer #social-em:hover {
+#contact #social-em:hover {
   color: #f39c12; }
