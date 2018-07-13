@@ -1,6 +1,5 @@
 body {
-  padding-top: 50px;
-  font-family: "Helvetica", Helvetica, sans-serif; }
+  padding-top: 50px; }
   @media (min-width: 767px) {
     body .navbar {
       padding: 5px 0;
