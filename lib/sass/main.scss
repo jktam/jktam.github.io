@@ -34,7 +34,7 @@ body {
   // text-align: center;
 }
 
-.content img{
+#works img{
     max-width: 100%;
     height:auto;
     display:block;
@@ -51,7 +51,8 @@ body {
 .bottom-right{
   position: absolute;
   bottom: 8px;
-  right: 16px;
+  right: 8px;
+  font-size:8pt;
 }
 
 }
