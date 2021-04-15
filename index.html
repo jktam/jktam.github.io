@@ -34,7 +34,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#profile">Profile</a>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#profile">About</a>
 					</li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#works">Works</a>
 					</li>
@@ -55,46 +55,219 @@
 				</div>
 				<div class="col-12 col-lg-9">
 					<p class="lead">
-            <span id="intro"></span>
-          </p>
+            			<span id="intro"></span>
+          			</p>
 				</div>
 			</div>
 		</div>
 	</header>
 
-  <section id="profile">
-    <div class="container">
-      <div class="content">
-        <h2>
-          About me
-        </h2>
-        <p>
-          Just your everyday humble private citizen, treading through the idiosyncrasies of life. I have an affinity for computers, summers in Asia, pets, The Simpsons, all-you-can-eat, video games, weightlifting, biking, and hiking-- among other things.
-        </p>
-        <p>
-          I graduated with a B.S. in Computer Science @ UC Davis in June 2016, pursuing a meaningful career in the world of IT. Currently working as a system administrator, I hope to make an impact by being dependable and approachable.
-        </p>
-      </div>
-    </div>
-  </section>
+  	<section id="profile">
+		<div class="container">
+			<div class="content">
+				<h2>
+				About me
+				</h2>
+				<p>
+					Just your everyday humble private citizen, treading through the idiosyncrasies of life. I have an affinity for computers, summers in Asia, pets, The Simpsons, all-you-can-eat, video games, weightlifting, biking, and hiking-- among other things.
+				</p>
+				<p>
+					I graduated with a B.S. in Computer Science @ UC Davis in June 2016, pursuing a meaningful career in the world of IT. Currently working as a system administrator, I hope to make an impact by being dependable and approachable. I also wear hats in help desk, systems engineering, QA, and a bit of DevOps. <i>I'm eager to learn.</i>
+				</p>
+			</div>
+		</div>
+  	</section>
 
 	<section id="works">
-		<div class="container-fluid">
-			<!-- <div class="content">
-				<div class="relative">
-					<img src="img/grad-shoot.jpg">
-					<div class="bottom-right"><font color="white">© David Suh Photography</font>
+		<div class="container">
+				<div class="content">
+					<h2>
+						What I've done
+					</h2>
+
+					<h4>
+						Home Lab
+					</h4>
+					<div class="row">
+						<div class="col-12 col-sm-6 col-lg-3">Network Diagram
+							<a>
+								<img data-toggle="modal" data-target="#netmapModal" src="img/network-map.png" class="img-thumbnail img-fluid" />
+							</a>
+						</div>
+
+						<div class="col-12 col-sm-6 col-lg-3">Snapshot
+							<a>
+								<img data-toggle="modal" data-target="#labModal" src="" class="img-thumbnail img-fluid" />
+							</a>
+						</div>
 					</div>
+
+					<div id="netmapModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Home Network Diagram</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<img src="img/network-map.png">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<p>I set up a rather unnecessarily complex home network that takes advantage of pfSense for routing and firewall, with the goal of isolating networks for LAN, IoT, game, and security camera devices. I'd say that's the spirit of homelab, yeah?</p>
+					<p>pfSense is running on an old laptop in a router-on-a-stick configuration. My ESXi host is running services such as piHole, FreeNAS (2x3TB RAID1), Jellyfin, and Minecraft and Valheim game servers. More than satisfied with this cheapy 32GB host.</p>
+
+					<h4>
+						Desktops
+					</h4>
+					<div class="row">
+						<div class="col-12 col-sm-6 col-lg-3">Current Build
+							<a>
+								<img data-toggle="modal" data-target="#pcaModal" src="img/my-pc.jpg" class="img-thumbnail img-fluid" />
+							</a>
+						</div>
+
+						<div class="col-12 col-sm-6 col-lg-3">Old Build
+							<a>
+								<img data-toggle="modal" data-target="#pcbModal" src="" class="img-thumbnail img-fluid" />
+							</a>
+						</div>
+					</div>
+
+					<div id="pcaModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">My Current Build</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<ul>
+										<li>AMD Ryzen 5 5600X</li>
+										<li>NVIDIA RTX 3070</li>
+										<li>2x8GB Crucial Ballistix DDR4-3600 CL16</li>
+									</ul>
+									<img src="img/my-pc.jpg">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<p>Playing with computers have been a fun hobby since I was little... It wasn't until college and a bit of spending money when I finally built my own, and not acquire hand me downs. I've built a few for myself and others, most notably an i7-4770k build that I stretched to around 6 years (with updates here and there) and my current 5600X based build that I built in November 2020.</p>
+
+					<h4>
+						Design
+					</h4>
+					<div class="row">
+						<div class="col-12 col-sm-6 col-lg-3">Memorial Project
+							<a>
+								<img data-toggle="modal" data-target="#bowieModal" src="img/bowie.jpg" class="img-thumbnail img-fluid" />
+							</a>
+						</div>
+
+						<div class="col-12 col-sm-6 col-lg-3">Typeface Project
+							<a>
+								<img data-toggle="modal" data-target="#fontModal" src="img/gill-sans-history.jpg" class="img-thumbnail img-fluid" />
+							</a>
+						</div>
+					</div>
+
+					<div id="bowieModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Design Project - David Bowie</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<img src="img/bowie.jpg">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="fontModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Design Project - Gil Sans</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<img src="img/gill-sans-history.jpg">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<p>I like to dabble in photography and design. I also take joy in face swapping, but I can't demonstrate those here in respect of my <strike>victims'</strike> subjects' privacy.</p>
+
+					<h4>
+						Travel
+					</h4>
+					<div class="row">
+						<div class="col-12 col-sm-6 col-lg-3">China
+							<a>
+								<img data-toggle="modal" data-target="#hangzhouModal" src="img/hangzhou-tea-fields.jpg" class="img-thumbnail img-fluid" />
+							</a>
+						</div>
+
+						<div class="col-12 col-sm-6 col-lg-3">Japan
+							<a>
+								<img data-toggle="modal" data-target="#fujiModal" src="img/fuji-crowd.jpg" class="img-thumbnail img-fluid" />
+							</a>
+						</div>
+					</div>
+
+					<div id="hangzhouModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Tea fields in Hangzhou</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<img src="img/hangzhou-tea-fields.jpg">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="fujiModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+						<div class="modal-dialog modal-lg">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Fuji-san, Japan</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<img src="img/fuji-crowd.jpg">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<p>Saying "I like to travel" can be considered cliché, but it really is that exhilarating.</p>
+					<p>I had the time of my life traveling Asia. I've toured all over China, from the vast tea fields in Hangzhou, the grandest historic architecture in Beijing, the famous filming set of the old Romance of the Three Kingdoms drama, to arduous mountain trails amongst the humid summer heat. In Japan, I've had the joy of tasting all the food like made-to-order sushi, masterfully prepared tonkatsu and gyukatsu, and irresistible fast food from local and western chains. I even conquered a mountain in the form of a bowl of ramen at Ramen Jiro. Also, with activities such as urban hiking, batting cages, and arcades, it was easy to get caught in its pace. Lastly, peaking Mt Fuji was a feeling like no other. </p>
+
 				</div>
-				<img src="img/hangzhou-tea-fields.jpg">
-				<img src="img/bowie.jpg">
-				<img src="img/tripod-and-motion.jpg">
-				<img src="img/googleio-poster.jpg">
-				<img src="img/gill-sans-history.jpg">
-				<img src="img/palettes-2.jpg">
-				<img src="img/nba-vis.PNG">
-				<img src="img/reddit-vis.PNG">
-			</div> -->
+
+
+			</div>
 		</div>
 	</section>
 
@@ -102,7 +275,7 @@
 
 	<div class="footer navbar-default navbar-fixed-bottom">
 		<section id="contact">
-			<div class="container">
+			<div class="container">Let's get in touch!
 				<div class="text-left center-block">
 					<a href="https://www.linkedin.com/in/jkitam" target="_blank"><i class="fa fa-linkedin-square fa-3x social" id="social-linkedin"></i></a>
 					<a href="https://github.com/jktam" target="_blank"><i class="fa fa-github-square fa-3x social" id="social-github"></i></a>

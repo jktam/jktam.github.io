@@ -59,6 +59,7 @@ body .lead {
 	font-size: 2.25rem;
 }
 
-body .h2 {
-  padding: 20x 40x;
+.content h4 {
+	padding-top: 20px;
+
 }
