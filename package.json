@@ -22,7 +22,7 @@
   "homepage": "https://github.com/jktam/jktam.github.io#readme",
   "devDependencies": {
     "browser-sync": "^2.23.6",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^5.0.0",
     "gulp-sass": "^3.2.1",
     "gulp-uglify": "^3.0.0"
