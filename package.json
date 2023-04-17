@@ -31,6 +31,6 @@
     "gulp-coffee": "^3.0.2",
     "gulp-pug": "^3.3.0",
     "gulp-sourcemaps": "^2.6.4",
-    "npm": "^5.8.0"
+    "npm": "^9.6.4"
   }
 }
