@@ -1,0 +1,22 @@
+/* :root {
+    --md-primary-fg-color:        #EE0F0F;
+    --md-primary-fg-color--light: #ECB7B7;
+    --md-primary-fg-color--dark:  #90030C;
+  } */
+
+
+[data-md-color-scheme="catppuccin-latte"] {
+    color-scheme: light;
+    --md-primary-bg-color:        #eff1f5;
+    --md-primary-fg-color:        #7287fd;
+    --md-typeset-color:           #4c4f69;
+
+}
+
+
+[data-md-color-scheme="slate"] {
+    color-scheme: dark;
+    --md-primary-bg-color:        #cad3f5;
+    --md-primary-fg-color:        #181926;
+    --md-typeset-color:           #cad3f5;
+}
