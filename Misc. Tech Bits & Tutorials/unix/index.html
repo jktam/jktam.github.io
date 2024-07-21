@@ -483,6 +483,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iptables-open-webserver-ports-http-and-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      iptables - Open webserver ports (HTTP and HTTPS)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="iptables - Open webserver ports (HTTP and HTTPS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-80" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP (80)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#https-443" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTPS (443)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -629,6 +662,13 @@
 or<br />
 <code>dd if=/dev/random of=/dev/sda bs=512</code><br />
 Can be used to wipe a drive and overwritten with zeroes or randoms. This can be done in a liveboot of gparted to see if the correct drive is selected.</p>
+<h2 id="iptables-open-webserver-ports-http-and-https">iptables - Open webserver ports (HTTP and HTTPS)</h2>
+<h3 id="http-80">HTTP (80)</h3>
+<p><code>sudo iptables -I INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT</code></p>
+<p><code>sudo iptables -I OUTPUT -p tcp --sport 80 -m conntrack --ctstate ESTABLISHED -j ACCEPT</code></p>
+<h3 id="https-443">HTTPS (443)</h3>
+<p><code>sudo iptables -I INPUT -p tcp --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT</code></p>
+<p><code>sudo iptables -I OUTPUT -p tcp --sport 443 -m conntrack --ctstate ESTABLISHED -j ACCEPT</code></p>
 
 
 
