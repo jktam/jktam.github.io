@@ -505,6 +505,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#running-compose-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running compose projects
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#traefik-docker-composeyml" class="md-nav__link">
     <span class="md-ellipsis">
       Traefik docker-compose.yml
@@ -614,11 +623,18 @@
 
 <h1 id="docker-tips-example-compose-files-troubleshooting">Docker tips, example compose files, &amp; troubleshooting</h1>
 <h2 id="compose-examples">Compose examples</h2>
+<h3 id="running-compose-projects">Running compose projects</h3>
+<pre><code>docker compose up
+docker compose down
+docker compose up --force-recreate
+</code></pre>
 <h3 id="traefik-docker-composeyml">Traefik docker-compose.yml</h3>
-<p>Notes:
-* 💡CHANGE ME💡
-* Use environment variables e.g. {ENV_VAR} and do not expose them in your code
-* This example uses Cloudflare for SSL/TLS</p>
+<p>Notes:</p>
+<ul>
+<li>💡CHANGE ME💡</li>
+<li>Use environment variables e.g. {ENV_VAR} and do not expose them in your code</li>
+<li>This example uses Cloudflare for SSL/TLS</li>
+</ul>
 <pre><code>version: '3'
 
 services:
