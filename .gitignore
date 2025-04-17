@@ -1,0 +1,10 @@
+.DS_Store
+node_modules
+node_modules/*
+.tmp
+dist/
+app.yal
+*~
+build/
+.idea
+jktam.github.io.code-workspace
