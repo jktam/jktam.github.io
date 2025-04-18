@@ -624,15 +624,16 @@
 <h1 id="docker-tips-example-compose-files-troubleshooting">Docker tips, example compose files, &amp; troubleshooting</h1>
 <h2 id="compose-examples">Compose examples</h2>
 <h3 id="running-compose-projects">Running compose projects</h3>
-<pre><code>docker compose up
+<pre><code>docker compose up -d
 docker compose down
-docker compose up --force-recreate
+docker compose up -d --force-recreate
+docker compose pull
 </code></pre>
 <h3 id="traefik-docker-composeyml">Traefik docker-compose.yml</h3>
 <p>Notes:</p>
 <ul>
 <li>💡CHANGE ME💡</li>
-<li>Use environment variables e.g. {ENV_VAR} and do not expose them in your code</li>
+<li>Use environment variables e.g. {ENV_VAR} and do not expose secrets in your code</li>
 <li>This example uses Cloudflare for SSL/TLS</li>
 </ul>
 <pre><code>version: '3'
@@ -661,13 +662,13 @@ services:
     labels:
       - &quot;traefik.enable=true&quot;
       - &quot;traefik.http.routers.traefik.entrypoints=http&quot;
-      - &quot;traefik.http.routers.traefik.rule=Host(💡`traefik.yourdomain.com`💡)&quot;
+      - &quot;traefik.http.routers.traefik.rule=Host(`💡traefik.yourdomain.com💡`)&quot;
       - &quot;traefik.http.middlewares.traefik-auth.basicauth.users=${HTTP_BASIC_USER}:${HTTP_BASIC_PWD}&quot;
       - &quot;traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https&quot;
       - &quot;traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https&quot;
       - &quot;traefik.http.routers.traefik.middlewares=traefik-https-redirect&quot;
       - &quot;traefik.http.routers.traefik-secure.entrypoints=https&quot;
-      - &quot;traefik.http.routers.traefik-secure.rule=Host(💡`traefik.yourdomain.com`💡)&quot;
+      - &quot;traefik.http.routers.traefik-secure.rule=Host(`💡traefik.yourdomain.com💡`)&quot;
       - &quot;traefik.http.routers.traefik-secure.middlewares=traefik-auth&quot;
       - &quot;traefik.http.routers.traefik-secure.tls=true&quot;
       - &quot;traefik.http.routers.traefik-secure.tls.certresolver=cloudflare&quot;
