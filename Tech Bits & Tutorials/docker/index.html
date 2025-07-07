@@ -690,14 +690,18 @@ networks:
     external: true
 </code></pre>
 <h3 id="pterodactyl-traefik-cloudflare-on-docker-compose">Pterodactyl + Traefik + Cloudflare on Docker Compose</h3>
-<p>Notes:
-* Use environment variables: <code>.env</code> file and <code>${ENV_VAR}</code> in your code. Do not expose secrets in public repositories.
-* Wings Daemon: even though the documentation says port 8443 is needed for Cloudflare proxy, I didn't have issues with port 443.
-* Browser console and docker logs can give clues to issues with connecting to the Wings nodes.
-* Do not be led astray by CORS errors, they are possibly issues with the reverse proxy configuration and not actually CORS-related (in some cases).</p>
-<p>Credits:
-* Adapted from <a href="https://github.com/JamesTurland/JimsGarage/tree/main/Pterodactyl">Jims's Garage</a>, plus a few changes I needed to make it work for me.
-* Pterodactyl Discord</p>
+<p>Notes:</p>
+<ul>
+<li>Use environment variables: <code>.env</code> file and <code>${ENV_VAR}</code> in your code. Do not expose secrets in public repositories.</li>
+<li>Wings Daemon: even though the documentation says port 8443 is needed for Cloudflare proxy, I didn't have issues with port 443.</li>
+<li>Browser console and docker logs can give clues to issues with connecting to the Wings nodes.</li>
+<li>Do not be led astray by CORS errors, they are possibly issues with the reverse proxy configuration and not actually CORS-related (in some cases).</li>
+</ul>
+<p>Credits:</p>
+<ul>
+<li>Adapted from <a href="https://github.com/JamesTurland/JimsGarage/tree/main/Pterodactyl">Jims's Garage</a>, plus a few changes I needed to make it work for me.</li>
+<li>Pterodactyl Discord</li>
+</ul>
 <p><code>compose.yml</code>:</p>
 <pre><code>services:
   db:
@@ -833,28 +837,35 @@ networks:
     driver_opts:
       com.docker.network.bridge.name: wings0
 </code></pre>
-<p>Run:
-<code>docker compose up -d</code>
-* Other useful commands if needed:</p>
+<p>Run:</p>
+<p><code>docker compose up -d</code></p>
+<ul>
+<li>Other useful commands if needed:</li>
+</ul>
 <pre><code>docker compose up -d --force-recreate
 
 # if you split your compose files between Panel and Wings
 docker compose -f compose.panel.yml up -d 
+docker compose -f compose.wings.yml up -d 
 
 # Show logs
 docker compose logs -f
 </code></pre>
-<p>After the first time Panel is running (Wings will fail at this time):
-* Create admin user, follow terminal input prompts
-<code>docker exec -it pterodactyl_panel php artisan p:user:make</code>
-* Create a Location
-* Create a Node
-  - Use SSL Connection: Yes
-  - Behind Proxy: Yes
-  - Daemon Port: 443
-* Save the Node and go to the Configuration tab
-* Copy and paste this to the server local file <code>/etc/pterodactyl/config.yml</code> (create it if it doesn't exist)
-* Copy and paste the following to the end of the above <code>config.yml</code>, otherwise you may get some CORS errors in the browser console.</p>
+<p>After the first time Panel is running (Wings will fail at this time):</p>
+<ul>
+<li>Create admin user, follow terminal input prompts</li>
+</ul>
+<p><code>docker exec -it pterodactyl_panel php artisan p:user:make</code></p>
+<ul>
+<li>Create a Location</li>
+<li>Create a Node</li>
+<li>Use SSL Connection: Yes</li>
+<li>Behind Proxy: Yes</li>
+<li>Daemon Port: 443</li>
+<li>Save the Node and go to the Configuration tab</li>
+<li>Copy and paste this to the server local file <code>/etc/pterodactyl/config.yml</code> (create it if it doesn't exist)</li>
+<li>Copy and paste the following to the end of the above <code>config.yml</code>, otherwise you may get some CORS errors in the browser console.</li>
+</ul>
 <pre><code>docker:
   network:
     interface: 172.18.0.1
