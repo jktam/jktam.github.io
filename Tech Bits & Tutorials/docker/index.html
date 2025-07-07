@@ -522,6 +522,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#pterodactyl-traefik-cloudflare-on-docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pterodactyl + Traefik + Cloudflare on Docker Compose
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -633,7 +642,7 @@ docker compose pull
 <p>Notes:</p>
 <ul>
 <li>💡CHANGE ME💡</li>
-<li>Use environment variables e.g. {ENV_VAR} and do not expose secrets in your code</li>
+<li>Use environment variables e.g. ${ENV_VAR} and do not expose secrets in your code</li>
 <li>This example uses Cloudflare for SSL/TLS</li>
 </ul>
 <pre><code>version: '3'
@@ -680,6 +689,199 @@ networks:
   proxy:
     external: true
 </code></pre>
+<h3 id="pterodactyl-traefik-cloudflare-on-docker-compose">Pterodactyl + Traefik + Cloudflare on Docker Compose</h3>
+<p>Notes:
+* Use environment variables: <code>.env</code> file and <code>${ENV_VAR}</code> in your code. Do not expose secrets in public repositories.
+* Wings Daemon: even though the documentation says port 8443 is needed for Cloudflare proxy, I didn't have issues with port 443.
+* Browser console and docker logs can give clues to issues with connecting to the Wings nodes.
+* Do not be led astray by CORS errors, they are possibly issues with the reverse proxy configuration and not actually CORS-related (in some cases).</p>
+<p>Credits:
+* Adapted from <a href="https://github.com/JamesTurland/JimsGarage/tree/main/Pterodactyl">Jims's Garage</a>, plus a few changes I needed to make it work for me.
+* Pterodactyl Discord</p>
+<p><code>compose.yml</code>:</p>
+<pre><code>services:
+  db:
+    image: mariadb:latest
+    container_name: pterodactyl_mariadb
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ./panel/db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: panel
+      MYSQL_USER: pterodactyl
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    networks:
+      - pterodactyl-network
+
+  cache:
+    image: redis:alpine
+    container_name: pterodactyl_redis
+    restart: unless-stopped
+    networks:
+      - pterodactyl-network
+
+  panel:
+    image: ghcr.io/pterodactyl/panel:latest
+    container_name: pterodactyl_panel
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+# port required if you do not use a reverse proxy
+#    ports:
+#      - 8080:80
+#      - 8443:443 # OPTIONAL
+    volumes:
+      - &quot;./panel/var/:/app/var/&quot;
+      - &quot;./panel/logs/:/app/storage/logs&quot;
+      - &quot;./panel/nginx/:/etc/nginx/conf.d/&quot;
+    environment:
+      RECAPTCHA_ENABLED: false
+      TZ: Etc/UTC
+      APP_TIMEZONE: US/Pacific
+      APP_KEY: ${APP_KEY}
+      APP_ENV: production
+      APP_ENVIRONMENT_ONLY: false
+      APP_URL: ${PANEL_DOMAIN}
+      APP_SERVICE_AUTHOR: ${MAIL_FROM_ADDRESS}
+      MAIL_FROM: ${MAIL_FROM_ADDRESS}
+      MAIL_DRIVER: smtp
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_ENCRYPTION: false
+      TRUSTED_PROXIES: &quot;*&quot;
+      PTERODACTYL_TELEMETRY_ENABLED: false
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: pterodactyl
+      DB_PASSWORD: ${DB_PASSWORD}
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: cache
+#      LE_EMAIL: &quot;&quot; # Uncomment if you want to use Let's Encrypt to generate an SSL certificate for the Panel.
+    networks:
+      - proxy
+      - pterodactyl-network
+    labels:
+      - &quot;traefik.enable=true&quot;
+      - &quot;traefik.docker.network=proxy&quot;
+      - &quot;traefik.http.routers.panel.entrypoints=web&quot;
+      - &quot;traefik.http.routers.panel.rule=Host(`${PANEL_DOMAIN}`)&quot;
+      - &quot;traefik.http.middlewares.panel-https-redirect.redirectscheme.scheme=https&quot;
+      - &quot;traefik.http.routers.panel.middlewares=panel-https-redirect&quot;
+      - &quot;traefik.http.routers.panel-secure.entrypoints=websecure&quot;
+      - &quot;traefik.http.routers.panel-secure.rule=Host(`${PANEL_DOMAIN}`)&quot;
+      - &quot;traefik.http.routers.panel-secure.tls=true&quot;
+      - &quot;traefik.http.routers.panel-secure.tls.certresolver=cloudflare&quot;
+      - &quot;traefik.http.routers.panel-secure.service=panel&quot;
+      - &quot;traefik.http.services.panel.loadbalancer.server.port=80&quot; # make sure the loadbalancer is the last line!!!
+
+  wings:
+    image: ghcr.io/pterodactyl/wings:latest
+    container_name: pterodactyl_wings
+    restart: unless-stopped
+    ports:
+      - 2022:2022 # SFTP
+    stdin_open: true
+    tty: true
+    environment:
+      TZ: US/Pacific
+      APP_TIMEZONE: US/Pacific
+      WINGS_UID: 1000
+      WINGS_GID: 1000
+      WINGS_USERNAME: pterodactyl
+    volumes:
+      - &quot;/var/run/docker.sock:/var/run/docker.sock&quot;
+      - &quot;/var/lib/docker/containers/:/var/lib/docker/containers/&quot;
+      - &quot;/etc/pterodactyl/:/etc/pterodactyl/&quot;
+      - &quot;/var/lib/pterodactyl/:/var/lib/pterodactyl/&quot;
+      - &quot;/var/log/pterodactyl/:/var/log/pterodactyl/&quot;
+      - &quot;/tmp/pterodactyl/:/tmp/pterodactyl/&quot;
+      - &quot;/etc/ssl/certs:/etc/ssl/certs:ro&quot;
+    networks:
+      - proxy
+      - wings0
+    labels:
+      - &quot;traefik.enable=true&quot;
+      - &quot;traefik.docker.network=proxy&quot;
+      - &quot;traefik.http.routers.wings0.entrypoints=web&quot;
+      - &quot;traefik.http.routers.wings0.rule=Host(`${WINGS_DOMAIN}`)&quot;
+      - &quot;traefik.http.middlewares.wings0-https-redirect.redirectscheme.scheme=https&quot;
+      - &quot;traefik.http.routers.wings0.middlewares=wings0-https-redirect&quot;
+      - &quot;traefik.http.routers.wings0-secure.entrypoints=websecure&quot;
+      - &quot;traefik.http.routers.wings0-secure.rule=Host(`${WINGS_DOMAIN}`)&quot;
+      - &quot;traefik.http.routers.wings0-secure.tls=true&quot;
+      - &quot;traefik.http.routers.wings0-secure.tls.certresolver=cloudflare&quot;
+      - &quot;traefik.http.routers.wings0-secure.service=wings0&quot;
+      - &quot;traefik.http.services.wings0.loadbalancer.server.port=443&quot; # make sure the loadbalancer is the last line!!!
+
+networks:
+  pterodactyl-network:
+    name: pterodactyl-network
+  proxy:
+    external: true
+  wings0:
+    name: wings0
+    driver: bridge
+    ipam:
+      config:
+        - subnet: &quot;172.21.0.0/16&quot; # Change this if needed. Make sure this doesn't conflict with existing networks
+    driver_opts:
+      com.docker.network.bridge.name: wings0
+</code></pre>
+<p>Run:
+<code>docker compose up -d</code>
+* Other useful commands if needed:</p>
+<pre><code>docker compose up -d --force-recreate
+
+# if you split your compose files between Panel and Wings
+docker compose -f compose.panel.yml up -d 
+
+# Show logs
+docker compose logs -f
+</code></pre>
+<p>After the first time Panel is running (Wings will fail at this time):
+* Create admin user, follow terminal input prompts
+<code>docker exec -it pterodactyl_panel php artisan p:user:make</code>
+* Create a Location
+* Create a Node
+  - Use SSL Connection: Yes
+  - Behind Proxy: Yes
+  - Daemon Port: 443
+* Save the Node and go to the Configuration tab
+* Copy and paste this to the server local file <code>/etc/pterodactyl/config.yml</code> (create it if it doesn't exist)
+* Copy and paste the following to the end of the above <code>config.yml</code>, otherwise you may get some CORS errors in the browser console.</p>
+<pre><code>docker:
+  network:
+    interface: 172.18.0.1
+    dns:
+    - 1.1.1.1
+    - 1.0.0.1
+    name: pterodactyl_nw
+    ispn: false
+    driver: bridge
+    network_mode: pterodactyl_nw
+    is_internal: false
+    enable_icc: true
+    interfaces:
+      v4:
+        subnet: 172.18.0.0/16
+        gateway: 172.18.0.1
+      v6:
+        subnet: fdba:17c8:6c94::/64
+        gateway: fdba:17c8:6c94::1011
+  domainname: &quot;&quot;
+  registries: {}
+  tmpfs_size: 100
+</code></pre>
+<ul>
+<li>change the <code>interface</code>, <code>subnet</code>, and <code>gateway</code> to match what you put for the <code>wings0</code> network in your <code>compose.yml</code> file.</li>
+<li>Check the Nodes List, if you have a green heart icon, you're golden!</li>
+</ul>
 
 
 
