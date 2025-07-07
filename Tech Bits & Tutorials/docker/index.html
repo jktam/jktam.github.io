@@ -642,8 +642,7 @@ docker compose pull
 <p>Notes:</p>
 <ul>
 <li>💡CHANGE ME💡</li>
-<li>Use environment variables e.g. ${ENV_VAR} and do not expose secrets in your code</li>
-<li>This example uses Cloudflare for SSL/TLS</li>
+<li>Use environment variables: <code>.env</code> file and <code>${ENV_VAR}</code> in your code. Do not expose secrets in public repositories.* This example uses Cloudflare for SSL/TLS</li>
 </ul>
 <pre><code>version: '3'
 
@@ -833,7 +832,7 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: &quot;172.21.0.0/16&quot; # Change this if needed. Make sure this doesn't conflict with existing networks
+        - subnet: &quot;172.18.0.0/16&quot; # Change this if needed. Make sure this doesn't conflict with existing networks
     driver_opts:
       com.docker.network.bridge.name: wings0
 </code></pre>
@@ -858,10 +857,12 @@ docker compose logs -f
 <p><code>docker exec -it pterodactyl_panel php artisan p:user:make</code></p>
 <ul>
 <li>Create a Location</li>
-<li>Create a Node</li>
+<li>Create a Node<ul>
 <li>Use SSL Connection: Yes</li>
 <li>Behind Proxy: Yes</li>
 <li>Daemon Port: 443</li>
+</ul>
+</li>
 <li>Save the Node and go to the Configuration tab</li>
 <li>Copy and paste this to the server local file <code>/etc/pterodactyl/config.yml</code> (create it if it doesn't exist)</li>
 <li>Copy and paste the following to the end of the above <code>config.yml</code>, otherwise you may get some CORS errors in the browser console.</li>
@@ -889,8 +890,9 @@ docker compose logs -f
   registries: {}
   tmpfs_size: 100
 </code></pre>
+<pre><code>- change the `interface`, `subnet`, and `gateway` to match what you put for the `wings0` network in your `compose.yml` file.
+</code></pre>
 <ul>
-<li>change the <code>interface</code>, <code>subnet</code>, and <code>gateway</code> to match what you put for the <code>wings0</code> network in your <code>compose.yml</code> file.</li>
 <li>Check the Nodes List, if you have a green heart icon, you're golden!</li>
 </ul>
 
